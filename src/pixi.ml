@@ -28,17 +28,15 @@ end
 type child = Graphics of Graphics.t | Sprite of Sprite.t
 
 module Container = struct
-  class type _t = object
-  end [@bs]
+  type t
 
-  type t = _t Js.t
 
-  external addChild : t -> 'a -> unit = "addChild" [@@bs.send]
+  external addChild' : t -> 'a -> unit = "addChild" [@@bs.send]
 
   let addChild container child =
     match child with
-    | Graphics g -> addChild container g
-    | Sprite s -> addChild container s
+    | Graphics g -> addChild' container g
+    | Sprite s -> addChild' container s
 
   external create : unit -> t = "PIXI.Container" [@@bs.new]
 end

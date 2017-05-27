@@ -40,9 +40,9 @@ let foo loader () =
   appendChild body renderer##view;
   Container.addChild stage (Graphics graphics);
   drawCircle graphics 300. 300. 60.;
-  renderer##render stage;
   startAnimation graphics renderer stage;
-  Container.addChild stage (Sprite cat)
+  Container.addChild stage (Sprite cat);
+  renderer##render stage
 
 let myMain () =
   let loader = Pixi.Loader.create in

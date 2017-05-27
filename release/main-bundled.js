@@ -1815,9 +1815,9 @@ function foo(loader, _) {
   document.body.appendChild(renderer.view);
   _2(Container[/* addChild */0], stage, /* Graphics */__(0, [graphics]));
   drawCircle(graphics, 300, 300, 60);
-  renderer.render(stage);
   startAnimation(graphics, renderer, stage);
-  return _2(Container[/* addChild */0], stage, /* Sprite */__(1, [cat]));
+  _2(Container[/* addChild */0], stage, /* Sprite */__(1, [cat]));
+  return renderer.render(stage);
 }
 
 function myMain() {
