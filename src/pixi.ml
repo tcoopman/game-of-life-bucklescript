@@ -25,11 +25,16 @@ module Graphics = struct
   external create : unit -> t = "PIXI.Graphics" [@@bs.new]
 end
 
-type child = Graphics of Graphics.t | Sprite of Sprite.t
 
-module Container = struct
+module Container : sig
   type t
+  type child = Graphics of Graphics.t | Sprite of Sprite.t
 
+  val addChild : t -> child -> unit
+  val create : unit -> t
+end = struct
+  type t
+  type child = Graphics of Graphics.t | Sprite of Sprite.t
 
   external addChild' : t -> 'a -> unit = "addChild" [@@bs.send]
 
@@ -54,19 +59,6 @@ module Renderer = struct
   external autoDetectRenderer :
     int -> int -> options -> t = "PIXI.autoDetectRenderer" [@@bs.val]
 end
-
-
-(*module TextureCache = struct
-  class type _t = object
-
-  end [@bs]
-
-  type t = _t Js.t
-
-  external create : string -> t = "PIXI.utils.TextureCache"
-end*)
-
-
 
 module Loader = struct
   class type _t = object

@@ -7,7 +7,14 @@ function addChild(container, child) {
   return /* () */0;
 }
 
-var Container = /* module */[/* addChild */addChild];
+function Container_001() {
+  return new PIXI.Container();
+}
+
+var Container = /* module */[
+  /* addChild */addChild,
+  Container_001
+];
 
 
 /* No side effect */
@@ -1806,7 +1813,7 @@ function foo(loader, _) {
     transparent: /* false */0
   };
   var renderer = PIXI.autoDetectRenderer(800, 600, opts);
-  var stage = new PIXI.Container();
+  var stage = _1(Container[/* create */1], /* () */0);
   var graphics = new PIXI.Graphics();
   var s = renderer.view.style;
   var cat = new PIXI.Sprite(loader.resources["cat.png"].texture);
