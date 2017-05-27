@@ -2,12 +2,22 @@ open Dom
 
 type texture
 
+type position = int * int
+
 module Sprite = struct
-  class type _t = object
-
-  end [@bs]
-
+  class type _t = object end [@bs]
   type t = _t Js.t
+
+  external x : t -> int -> unit = "x" [@@bs.set]
+  external y : t -> int -> unit = "y" [@@bs.set]
+
+  let updatePosition : t -> position -> t =
+    fun sprite (x', y') ->
+      x sprite x';
+      y sprite y';
+      sprite
+
+
   external create : texture -> t = "PIXI.Sprite" [@@bs.new]
 end
 
@@ -69,6 +79,14 @@ module Loader = struct
 
   type t = _t Js.t
   type loader
+
+  module LoaderProcess = struct
+    type lp
+
+    external progress : lp -> float = "progress" [@@bs.get]
+  end
+
+  external on : ([`progress of LoaderProcess.lp -> unit] [@bs.string]) -> _t = "" [@@bs.send.pipe: _t]
 
   external resources : t -> string -> loader = "" [@@bs.get_index] [@@bs.scope "resources"]
   external texture : loader -> texture = "texture" [@@bs.get]

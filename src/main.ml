@@ -42,13 +42,13 @@ let foo loader () =
   drawCircle graphics 300. 300. 60.;
   startAnimation graphics renderer stage;
   Container.addChild stage (Sprite cat);
+  Sprite.updatePosition cat (10, 10);
   renderer##render stage
 
 let myMain () =
   let loader = Pixi.Loader.create in
-  loader##add [|"cat.png"|];
-  loader##load (foo loader);
-
+  loader##add [|"cat.png"|] |> Pixi.Loader.on (`progress (fun (lp) -> (print_endline (Pixi.Loader.LoaderProcess.progress lp |> string_of_float ))));
+  loader##load (foo loader)
 
 type msg =
   | NothingYet
