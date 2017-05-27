@@ -1,0 +1,26 @@
+{
+  "name": "bucklescript-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:bsb": "bsb -make-world",
+    "build:js": "rollup -c",
+    "build": "run-s build:bsb build:js",
+    "watch:bsb": "bsb -w",
+    "watch:js": "rollup -c -w",
+    "prewatch": "run-s build",
+    "watch": "run-p watch:bsb watch:js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bs-platform": "^1.7.4",
+    "bucklescript-tea": "^0.5.1",
+    "npm-run-all": "^4.0.2",
+    "rollup": "^0.41.6",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^3.2.2"
+  }
+}
