@@ -1,53 +1,9 @@
 open Tea
+open Pixi
+open Dom
 
-type element
-
-external body: element = "document.body" [@@bs.val]
-external appendChild : element -> element -> unit = "appendChild" [@@bs.send]
-external createTextNode : string -> element = "document.createTextNode" [@@bs.val]
-external requestAnimationFrame :
-  (unit -> unit) -> unit = "requestAnimationFrame" [@@bs.val]
 external sin : float -> float = "Math.sin" [@@bs.val]
 external cos : float -> float = "Math.cos" [@@bs.val]
-
-module Graphics = struct
-  class type _t = object
-    method lineStyle: int -> unit
-    method beginFill: int -> float -> unit
-    method drawCircle: float -> float -> float -> unit
-    method endFill: unit -> unit
-    method clear: unit -> unit
-  end [@bs]
-
-  type t = _t Js.t
-
-  external create : unit -> t = "PIXI.Graphics" [@@bs.new]
-end
-
-module Container = struct
-  class type _t = object
-    method addChild: Graphics.t -> unit
-  end [@bs]
-
-  type t = _t Js.t
-
-  external create : unit -> t = "PIXI.Container" [@@bs.new]
-end
-
-module Renderer = struct
-  class type _t = object
-    method view: element
-    method render: Container.t -> unit
-  end [@bs]
-
-  type t = _t Js.t
-
-  type options = < antialias: bool; transparent: bool > Js.t
-
-  external autoDetectRenderer :
-    int -> int -> options -> t = "PIXI.autoDetectRenderer" [@@bs.val]
-end
-
 
 let drawCircle graphics x y r =
   graphics##lineStyle 0;
@@ -75,6 +31,9 @@ let foo () =
   let renderer = Renderer.autoDetectRenderer 800 600 opts in
   let stage = Container.create() in
   let graphics = Graphics.create() in
+  let s = Style.style renderer##view in
+  s##setProperty "border" "1px blue solid";
+  border renderer##view "5px red solid";
   appendChild body renderer##view;
   stage##addChild graphics;
   drawCircle graphics 300. 300. 60.;
