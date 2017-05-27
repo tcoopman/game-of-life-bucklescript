@@ -46,7 +46,7 @@ let foo loader () =
 
 let myMain () =
   let loader = Pixi.Loader.create in
-  loader##add "cat.png";
+  loader##add [|"cat.png"|];
   loader##load (foo loader);
 
 

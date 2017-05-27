@@ -62,7 +62,7 @@ end
 
 module Loader = struct
   class type _t = object
-    method add: string -> _t
+    method add: string array -> _t
     method load: (unit -> unit) -> unit
     method resources: string -> texture
   end [@bs]
