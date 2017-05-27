@@ -10,11 +10,13 @@ module Sprite = struct
 
   external x : t -> int -> unit = "x" [@@bs.set]
   external y : t -> int -> unit = "y" [@@bs.set]
+  external setPosition : t -> int -> int -> unit = "set" [@@bs.send] [@@bs.scope "position"]
 
   let updatePosition : t -> position -> t =
     fun sprite (x', y') ->
-      x sprite x';
-      y sprite y';
+      setPosition sprite x' y';
+      (*x sprite x';
+      y sprite y';*)
       sprite
 
 
