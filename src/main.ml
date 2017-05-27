@@ -1,5 +1,4 @@
 open Tea
-open Pixi
 open Dom
 
 external sin : float -> float = "Math.sin" [@@bs.val]
@@ -26,19 +25,29 @@ let startAnimation graphics renderer stage =
     requestAnimationFrame (animate (t +. deltaT))
   in requestAnimationFrame (animate 0.0)
 
-let foo () = 
+let foo loader () = 
+  let open Pixi in
   let opts = [%bs.obj {antialias = true; transparent = false}] in
   let renderer = Renderer.autoDetectRenderer 800 600 opts in
   let stage = Container.create() in
   let graphics = Graphics.create() in
   let s = Style.style renderer##view in
+  let cat = Loader.resources loader "cat.png" 
+    |> Loader.texture
+    |> Sprite.create in
   s##setProperty "border" "1px blue solid";
   border renderer##view "5px red solid";
   appendChild body renderer##view;
-  stage##addChild graphics;
+  Container.addChild stage (Graphics graphics);
   drawCircle graphics 300. 300. 60.;
   renderer##render stage;
-  startAnimation graphics renderer stage
+  startAnimation graphics renderer stage;
+  Container.addChild stage (Sprite cat)
+
+let myMain () =
+  let loader = Pixi.Loader.create in
+  loader##add "cat.png";
+  loader##load (foo loader);
 
 
 type msg =
