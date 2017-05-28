@@ -121,7 +121,6 @@ end = struct
   external on : ([`progress of lp -> unit] [@bs.string]) -> t = "" [@@bs.send.pipe: t]
 
   let onProgress cb loader =
-    let x p = cb (progress' p) in
-    loader |> on (`progress x) |> ignore;
+    loader |> on (`progress (fun p -> cb (progress' p))) |> ignore;
     loader
 end

@@ -287,10 +287,9 @@ function load(cb, loader) {
 }
 
 function onProgress(cb, loader) {
-  var x = function (p) {
-    return _1(cb, p.progress);
-  };
-  loader.on("progress", x);
+  loader.on("progress", function (p) {
+        return _1(cb, p.progress);
+      });
   return loader;
 }
 
