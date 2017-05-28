@@ -1,5 +1,5 @@
 open Tea
-open Dom
+open MyDom
 
 external sin : float -> float = "Math.sin" [@@bs.val]
 external cos : float -> float = "Math.cos" [@@bs.val]

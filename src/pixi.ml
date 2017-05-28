@@ -1,4 +1,4 @@
-open Dom
+open MyDom
 
 type texture
 
