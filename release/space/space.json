@@ -1,0 +1,39 @@
+{"frames": {
+
+"background.png":
+{
+	"frame": {"x":0,"y":0,"w":640,"h":480},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":640,"h":480},
+	"sourceSize": {"w":640,"h":480},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"spaceboss.png":
+{
+	"frame": {"x":640,"y":0,"w":98,"h":87},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":87},
+	"sourceSize": {"w":98,"h":87},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"spaceship.png":
+{
+	"frame": {"x":738,"y":0,"w":38,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":34},
+	"sourceSize": {"w":38,"h":34},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "space.png",
+	"format": "RGBA8888",
+	"size": {"w":776,"h":480},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:8e702ac226fddfdf34e6a4dcc92cdf72:04a4e81c1f8da555460e85bf004b58d5:5c66d13d521b19a155e36d6dbcb34ba3$"
+}
+}
