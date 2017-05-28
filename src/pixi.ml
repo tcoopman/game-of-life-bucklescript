@@ -92,6 +92,9 @@ module Loader = struct
 
   external resources : t -> string -> loader = "" [@@bs.get_index] [@@bs.scope "resources"]
   external texture : loader -> texture = "texture" [@@bs.get]
+  external textures' : loader -> string -> texture option = "" [@@bs.get_index] [@@bs.scope "textures"] [@@bs.return null_undefined_to_opt]
+  let textures name loader =
+    textures' loader name
 
   external create : t = "PIXI.loader" [@@bs.val]
 end
