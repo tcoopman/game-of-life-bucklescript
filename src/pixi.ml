@@ -72,29 +72,56 @@ module Renderer = struct
     int -> int -> options -> t = "PIXI.autoDetectRenderer" [@@bs.val]
 end
 
-module Loader = struct
-  class type _t = object
-    method add: string array -> _t
-    method load: (unit -> unit) -> unit
-    method resources: string -> texture
-  end [@bs]
+module Resources : sig
+  type t  
 
-  type t = _t Js.t
-  type loader
+  val create : string -> t option
+  val texture : string -> t -> texture option
+end = struct 
+  type t
 
-  module LoaderProcess = struct
-    type lp
+  type _t
 
-    external progress : lp -> float = "progress" [@@bs.get]
-  end
+  external get_t : _t = "PIXI.loader.resources" [@@bs.val]
 
-  external on : ([`progress of LoaderProcess.lp -> unit] [@bs.string]) -> _t = "" [@@bs.send.pipe: _t]
+  external resources' : _t -> string -> t option = "" [@@bs.get_index] [@@bs.return null_undefined_to_opt]
+  external texture': t -> string -> texture option = "" [@@bs.get_index] [@@bs.scope "textures"] [@@bs.return null_undefined_to_opt]
 
-  external resources : t -> string -> loader = "" [@@bs.get_index] [@@bs.scope "resources"]
-  external texture : loader -> texture = "texture" [@@bs.get]
-  external textures' : loader -> string -> texture option = "" [@@bs.get_index] [@@bs.scope "textures"] [@@bs.return null_undefined_to_opt]
-  let textures name loader =
-    textures' loader name
+  let create resource =
+    let _t = get_t in
+    resources' _t resource
 
-  external create : t = "PIXI.loader" [@@bs.val]
+  let texture name t = texture' t name
+end
+
+module Loader : sig
+  type t
+  val init : t
+  val add : string array -> t -> t
+  val onProgress : (float -> unit) -> t -> t
+  val load : (unit -> unit) -> t -> t
+end = struct
+  type t
+
+  external add' : t -> string array -> unit = "add" [@@bs.send]
+  external load' : t -> (unit -> unit) -> unit = "load" [@@bs.send]
+
+  external init : t = "PIXI.loader" [@@bs.val]
+
+  let add items loader =
+    add' loader items;
+    loader
+
+  let load cb loader =
+    load' loader cb;
+    loader
+
+  type lp
+  external progress' : lp -> float = "progress" [@@bs.get]
+  external on : ([`progress of lp -> unit] [@bs.string]) -> t = "" [@@bs.send.pipe: t]
+
+  let onProgress cb loader =
+    let x p = cb (progress' p) in
+    loader |> on (`progress x) |> ignore;
+    loader
 end

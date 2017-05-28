@@ -27,11 +27,17 @@ let startAnimation graphics renderer stage =
 
 module Option : sig 
   val map : ('a -> 'b) -> 'a option -> 'b option
+  val andThen : ('a -> 'b option) -> 'a option -> 'b option
 end = struct
   let map f a =
     match a with
       | Some x -> Some (f x)
       | None -> None
+
+    let andThen f a =
+      match a with
+        | None -> None
+        | Some x -> f x
 end
 
 let putSprite stage position = function
@@ -42,34 +48,31 @@ let putSprite stage position = function
     print_endline "No valid sprite loaded"
   
 
-let foo loader () = 
+let setup () = 
   let open Pixi in
   let opts = [%bs.obj {antialias = true; transparent = false}] in
   let renderer = Renderer.autoDetectRenderer 800 600 opts in
   let stage = Container.create() in
   let graphics = Graphics.create() in
   let s = Style.style renderer##view in
-  let pack = Loader.resources loader "space/space.json" in
-  let background = pack
-    |> Loader.textures "background.png"
-    |> Option.map Sprite.create in
-  let ship = pack
-    |> Loader.textures "spaceship.png"
-    |> Option.map Sprite.create in
+  let maybePack = Resources.create "space/space.json" in
+  let maybeBackground = maybePack |> Option.andThen (Resources.texture "background.png") |> Option.map Sprite.create in
+  let maybeShip = maybePack |> Option.andThen (Resources.texture "spaceship.png") |> Option.map Sprite.create in
   s##setProperty "border" "1px blue solid";
   border renderer##view "5px red solid";
   appendChild body renderer##view;
   Container.addChild stage (Graphics graphics);
   drawCircle graphics 300. 300. 60.;
   startAnimation graphics renderer stage;
-  putSprite stage (0, 0) background;
-  putSprite stage (200, 100) ship;
+  putSprite stage (0, 0) maybeBackground;
+  putSprite stage (200, 100) maybeShip;
   renderer##render stage
 
 let myMain () =
-  let loader = Pixi.Loader.create in
-  loader##add [|"space/space.json"|] |> Pixi.Loader.on (`progress (fun (lp) -> (print_endline (Pixi.Loader.LoaderProcess.progress lp |> string_of_float ))));
-  loader##load (foo loader)
+  Pixi.Loader.init
+  |> Pixi.Loader.add [|"space/space.json"|]
+  |> Pixi.Loader.onProgress (fun p -> (print_endline (string_of_float p)))
+  |> Pixi.Loader.load setup
 
 type msg =
   | NothingYet
