@@ -1,5 +1,6 @@
 open Tea
 open MyDom
+open Types
 
 external sin : float -> float = "Math.sin" [@@bs.val]
 external cos : float -> float = "Math.cos" [@@bs.val]
@@ -25,20 +26,6 @@ let startAnimation graphics renderer stage =
     requestAnimationFrame (animate (t +. deltaT))
   in requestAnimationFrame (animate 0.0)
 
-module Option : sig 
-  val map : ('a -> 'b) -> 'a option -> 'b option
-  val andThen : ('a -> 'b option) -> 'a option -> 'b option
-end = struct
-  let map f a =
-    match a with
-      | Some x -> Some (f x)
-      | None -> None
-
-    let andThen f a =
-      match a with
-        | None -> None
-        | Some x -> f x
-end
 
 let putSprite stage position = function
   | Some s ->
@@ -74,39 +61,30 @@ let myMain () =
   |> Pixi.Loader.onProgress (fun p -> (print_endline (string_of_float p)))
   |> Pixi.Loader.load setup
 
-type msg =
-  | NothingYet
-  | SomethingElse
-  [@@bs.deriving {accessors}]
+let init universe =
+    { universe = universe ;
+      examples = Examples.all ;
+      viewPort = newViewPort 0 0 20 20 35 ;
+      running = true
+    }
 
-type model = {
-  notUsedYet : int;
-}
-
-let init () =
-  let model ={
-    notUsedYet = 42;
-  } in
-  (model, Cmd.none)
-
-let update model = function
-  | NothingYet -> (model, Cmd.none)
-  | SomethingElse -> (model, Cmd.none)
-
-let subscriptions _model =
-  Sub.none
+let subscriptions model =
+  if model.running then
+    Tea.Time.every (200. *. Tea.Time.millisecond) (fun _ -> Evolve)
+  else Sub.none
 
 let view model =
   let open Html in
   div
     []
-    [ text (string_of_int model.notUsedYet)
+    [ text (string_of_bool model.running)
     ]
 
 let main =
+  let glider = Examples.glider in
   App.standardProgram {
-    init;
-    update;
+    init = (fun () -> (init glider, Tea.Cmd.none)) ;
+    update = Start.update ;
     view;
     subscriptions;
   }
