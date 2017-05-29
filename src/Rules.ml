@@ -84,15 +84,18 @@ let reduceLifeCycle cell neighbours =
 let applyRules cell neighbours =
     let action = reduceLifeCycle cell neighbours in
     match action with
-        | Dies -> Dead
-        | Revives -> Alive
-        | Same -> cell
+        | Dies -> 
+            Dead
+        | Revives ->
+            Alive
+        | Same ->
+            cell
 
 
 let applyRulesTest =
-    [ ( (applyRules Alive [ Dead ]) == Dead, "Underpopulation" )
-    , ( (applyRules Alive [ Alive; Alive; Dead ]) == Alive, "Lives on with 2" )
-    , ( (applyRules Alive [ Alive; Alive; Alive; Alive ]) == Dead, "Overpopulation" )
-    , ( (applyRules Dead [ Alive; Alive; Alive ]) == Alive, "reproduction" )
-    , ( (applyRules Dead [ Dead; Dead; Dead; Alive; Alive; Alive ]) == Alive, "reproduction" )
+    [ ( (applyRules Alive [ Dead ]) == Dead, "Underpopulation" ) ;
+      ( (applyRules Alive [ Alive; Alive; Dead ]) == Alive, "Lives on with 2" ) ;
+      ( (applyRules Alive [ Alive; Alive; Alive; Alive ]) == Dead, "Overpopulation" ) ;
+      ( (applyRules Dead [ Alive; Alive; Alive ]) == Alive, "reproduction" ) ;
+      ( (applyRules Dead [ Dead; Dead; Dead; Alive; Alive; Alive ]) == Alive, "reproduction" ) ;
     ]

@@ -64,7 +64,7 @@ let myMain () =
 let init universe =
     { universe = universe ;
       examples = Examples.all ;
-      viewPort = newViewPort 0 0 20 20 35 ;
+      viewPort = newViewPort 0 0 10 10 35 ;
       running = true
     }
 
@@ -73,18 +73,10 @@ let subscriptions model =
     Tea.Time.every (200. *. Tea.Time.millisecond) (fun _ -> Evolve)
   else Sub.none
 
-let view model =
-  let open Html in
-  div
-    []
-    [ text (string_of_bool model.running)
-    ]
-
-let main =
-  let glider = Examples.glider in
-  App.standardProgram {
-    init = (fun () -> (init glider, Tea.Cmd.none)) ;
+let main = 
+   App.standardProgram {
+    init = (fun () -> (init Examples.blinker, Tea.Cmd.none)) ;
     update = Start.update ;
-    view;
+    view = View.view;
     subscriptions;
   }

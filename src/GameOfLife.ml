@@ -6,7 +6,7 @@ let (<<) f g x = f (g x)
 let isNeighbour ( x1, y1 ) ( x2, y2 ) =
     (abs (x1 - x2) <= 1)
         && (abs (y1 - y2) <= 1)
-        && (( x1, y1 ) != ( x2, y2 ))
+        && not (x1 == x2 && y1 == y2)
 
 
 let findNeighbours universe position =
@@ -22,7 +22,7 @@ let evolveCell universe ( position, cell ) =
 
 
 let findMaybeCell universe ( x, y ) =
-    let inBounds ( ( x_, y_ ), _ ) = x_ == x && y_ == y in
+    let inBounds ( ( x', y' ), _ ) = x' == x && y' == y in
     universe
         |> List.filter inBounds
         |> Lst.head
@@ -47,7 +47,6 @@ let dedupe universe =
                 |> PosSet.elements
     in
         List.map (findCell universe) dedupedPositions
-
 
 let evolve universe =
     let
