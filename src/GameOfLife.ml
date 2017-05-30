@@ -1,4 +1,4 @@
-open Types
+open GameTypes
 let applyRules = Rules.applyRules
 
 let (<<) f g x = f (g x)

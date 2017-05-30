@@ -1,21 +1,3 @@
-type cell = 
-    | Alive
-    | Dead
-
-
-type neighbours = cell list
-
-type lifeCycle =
-    | Dies
-    | Revives
-    | Same
-
-
-type position = int * int
-
-type positionedCell = position * cell
-
-type universe = positionedCell list
 
 type viewPort =
     { xMin : int ;
@@ -26,14 +8,13 @@ type viewPort =
     }
 let newViewPort a b c d e = { xMin= a; yMin= b; xMax= c; yMax= d; cellSize= e}
 
-
 type model =
-    { universe : universe ;
-      examples : (string * universe) list ;
+    { universe : GameTypes.universe ;
+      examples : (string * GameTypes.universe) list ;
       viewPort : viewPort ;
       running : bool ;
+      pixi : MyPixiRenderer.t ;
     }
-
 
 type msg
     = NoOp

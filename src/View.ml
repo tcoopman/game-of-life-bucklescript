@@ -1,4 +1,5 @@
 open Types
+open GameTypes
 open Tea.Html
 let findCell = GameOfLife.findCell
 
@@ -45,9 +46,11 @@ let viewUniverse viewPort universe =
     div [] rowsHtml
 
 
+
 let view model =
     let playLabel = if model.running then "Pause" else "Play" in
     let selectOption ( name, _ ) = option' [] [ text name ] in
+        MyPixiRenderer.render model.pixi model.universe;
         div
             []
             [ viewUniverse model.viewPort model.universe ; 

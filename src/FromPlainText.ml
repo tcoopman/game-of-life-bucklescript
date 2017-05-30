@@ -1,7 +1,7 @@
 let toPosition (x: int) (y: int) (char: char) =
     match char with
-        | 'O' -> ((x, y), Types.Alive)
-        | _ -> ((x, y), Types.Dead)
+        | 'O' -> ((x, y), GameTypes.Alive)
+        | _ -> ((x, y), GameTypes.Dead)
 
 
 let explode s =

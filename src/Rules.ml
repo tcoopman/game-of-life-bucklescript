@@ -1,4 +1,4 @@
-open Types
+open GameTypes
 
 
 let numberOfLive neighbours =

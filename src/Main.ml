@@ -1,11 +1,10 @@
 open Tea
-open MyDom
 open Types
 
 external sin : float -> float = "Math.sin" [@@bs.val]
 external cos : float -> float = "Math.cos" [@@bs.val]
 
-let drawCircle graphics x y r =
+(*let drawCircle graphics x y r =
   graphics##lineStyle 0;
   graphics##beginFill 0xFFFF0B 0.5;
   graphics##drawCircle x y r;
@@ -59,13 +58,15 @@ let myMain () =
   Pixi.Loader.init
   |> Pixi.Loader.add [|"space/space.json"|]
   |> Pixi.Loader.onProgress (fun p -> (print_endline (string_of_float p)))
-  |> Pixi.Loader.load setup
+  |> Pixi.Loader.load setup*)
+
 
 let init universe =
     { universe = universe ;
       examples = Examples.all ;
       viewPort = newViewPort 0 0 10 10 35 ;
-      running = true
+      running = true;
+      pixi = MyPixiRenderer.init ;
     }
 
 let subscriptions model =

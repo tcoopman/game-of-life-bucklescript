@@ -1,4 +1,4 @@
-open Types
+open GameTypes
 
 let create positions =
     let positionedCell position = ( position, Alive ) in
