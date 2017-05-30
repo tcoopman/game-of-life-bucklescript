@@ -40,13 +40,14 @@ end
 
 module Container : sig
   type t
-  type child = Graphics of Graphics.t | Sprite of Sprite.t
+  type child = Graphics of Graphics.t | Sprite of Sprite.t | Container of t
 
   val addChild : t -> child -> unit
   val create : unit -> t
+  val clear : t -> t
 end = struct
   type t
-  type child = Graphics of Graphics.t | Sprite of Sprite.t
+  type child = Graphics of Graphics.t | Sprite of Sprite.t | Container of t
 
   external addChild' : t -> 'a -> unit = "addChild" [@@bs.send]
 
@@ -54,8 +55,14 @@ end = struct
     match child with
     | Graphics g -> addChild' container g
     | Sprite s -> addChild' container s
+    | Container t -> addChild' container t
 
   external create : unit -> t = "PIXI.Container" [@@bs.new]
+  
+  external removeChildren : t -> unit = "removeChildren" [@@bs.send]
+  let clear container =
+    removeChildren container;
+    container;
 end
 
 module Renderer = struct

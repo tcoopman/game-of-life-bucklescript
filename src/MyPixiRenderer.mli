@@ -2,4 +2,4 @@ type t
 
 val init : t
 
-val render : t -> GameTypes.universe -> unit
+val render : t -> int -> GameTypes.universe -> unit

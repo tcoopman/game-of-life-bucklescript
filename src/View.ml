@@ -50,11 +50,12 @@ let viewUniverse viewPort universe =
 let view model =
     let playLabel = if model.running then "Pause" else "Play" in
     let selectOption ( name, _ ) = option' [] [ text name ] in
-        MyPixiRenderer.render model.pixi model.universe;
+        MyPixiRenderer.render model.pixi model.viewPort.cellSize model.universe;
         div
             []
-            [ viewUniverse model.viewPort model.universe ; 
-            ]
+            []
+            (*[ viewUniverse model.viewPort model.universe ; 
+            ]*)
             (*[ map (fun _ -> ToggleRunning) (playButton playLabel)
             , map (fun _ -> ZoomOut) (playButton "Zoom out")
             , map (fun _ -> ZoomIn) (playButton "Zoom in")
