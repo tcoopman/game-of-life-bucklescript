@@ -11,6 +11,8 @@ module Style = struct
 end
 
 external body: element = "document.body" [@@bs.val]
+external document: element = "document" [@@bs.val]
+external elementById: element -> string -> element = "getElementById" [@@bs.send]
 external appendChild : element -> element -> unit = "appendChild" [@@bs.send]
 external createTextNode : string -> element = "document.createTextNode" [@@bs.val]
 external border : element -> string -> unit = "" [@@bs.set] [@@bs.scope "style"]

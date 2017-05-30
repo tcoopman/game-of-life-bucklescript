@@ -1,15 +1,25 @@
-<html>
-<head>
-  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-  <meta content="utf-8" http-equiv="encoding">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.2/pixi.min.js"></script>
-  <script src="main-bundled.js"></script>
-  <script>
-  setTimeout(function(){
-    var app = bstest.main(document.body);
-  }, 1)
-  </script>
-</head>
-<body>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.2/pixi.min.js"></script>
+    <script src="main-bundled.js"></script>
+    <script>
+    setTimeout(function(){
+      var app = bstest.main(document.getElementById("root"));
+    }, 1)
+    </script>
+
+    <title>Game of Life - Bucklescript</title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+
+  <body>
+    <p>code at: <a href="https://github.com/tcoopman/game-of-life-bucklescript">github</a></p>
+    <div id="root"></div>
+  </body>
 </html>

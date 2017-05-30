@@ -2734,7 +2734,8 @@ _2(Loader[/* load */3], function (param) {
       var spriteStage = _1(Container[/* create */1], /* () */0);
       var maybePack = _1(Resources[/* create */0], "space/space.json");
       var textureLife = andThen(_1(Resources[/* texture */1], "spaceship.png"), maybePack);
-      document.body.appendChild(renderer.view);
+      var rootElem = document.getElementById("root");
+      rootElem.appendChild(renderer.view);
       _2(Container[/* addChild */0], rootStage, /* Container */__(2, [backgroundStage(maybePack)]));
       _2(Container[/* addChild */0], rootStage, /* Container */__(2, [spriteStage]));
       renderer.render(rootStage);

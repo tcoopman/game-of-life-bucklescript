@@ -30,7 +30,8 @@ let setup t () =
   let spriteStage = Pixi.Container.create() in
   let maybePack = Resources.create "space/space.json" in
   let textureLife = maybePack |> Option.andThen (Resources.texture "spaceship.png") in 
-  MyDom.appendChild MyDom.body renderer##view;
+  let rootElem = MyDom.elementById MyDom.document "root" in
+  MyDom.appendChild rootElem renderer##view;
   Pixi.Container.addChild rootStage (Container (backgroundStage maybePack));
   Pixi.Container.addChild rootStage (Container spriteStage);
   renderer##render rootStage;
