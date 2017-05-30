@@ -11,7 +11,7 @@ let init universe =
 
 let subscriptions model =
   if model.running then
-    Tea.Time.every (200. *. Tea.Time.millisecond) (fun _ -> Evolve)
+    Tea.Time.every (400. *. Tea.Time.millisecond) (fun _ -> Evolve)
   else Sub.none
 
 let main = 

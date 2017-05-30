@@ -16,6 +16,7 @@ module Sprite = struct
       sprite
 
   external create : texture -> t = "PIXI.Sprite" [@@bs.new]
+  external createTiling : texture -> int -> int -> t = "PIXI.TilingSprite" [@@bs.new]
 end
 
 module Graphics = struct

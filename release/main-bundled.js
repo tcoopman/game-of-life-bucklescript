@@ -2702,11 +2702,10 @@ function putSprite(stage, position, sprite) {
 
 function backgroundStage(maybePack) {
   var backgroundStage$1 = _1(Container[/* create */1], /* () */0);
-  var maybeBackground = map$4(function (prim) {
-        return new PIXI.Sprite(prim);
+  var maybeBackground = map$4(function (t) {
+        return new PIXI.TilingSprite(t, 800, 600);
       }, andThen(_1(Resources[/* texture */1], "background.png"), maybePack));
   if (maybeBackground) {
-    console.log("rendered background??");
     putSprite(backgroundStage$1, /* tuple */[
           0,
           0
@@ -2714,7 +2713,6 @@ function backgroundStage(maybePack) {
   } else {
     console.log("No background found");
   }
-  console.log("what???");
   return backgroundStage$1;
 }
 
@@ -5028,7 +5026,7 @@ function init$$1(universe) {
 
 function subscriptions(model) {
   if (model[/* running */3]) {
-    return every(200 * millisecond, function () {
+    return every(400 * millisecond, function () {
                 return /* Evolve */1;
               });
   } else {

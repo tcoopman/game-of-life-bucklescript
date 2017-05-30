@@ -11,14 +11,14 @@ let putSprite stage position sprite =
 
 let backgroundStage maybePack =
     let backgroundStage = Pixi.Container.create() in
-    let maybeBackground = maybePack |> Option.andThen (Pixi.Resources.texture "background.png") |> Option.map Pixi.Sprite.create in
+    let maybeBackground = maybePack 
+        |> Option.andThen (Pixi.Resources.texture "background.png") 
+        |> Option.map (fun t -> Pixi.Sprite.createTiling t 800 600) in
     (match maybeBackground with
         | Some b -> 
-            print_endline "rendered background??";
             putSprite backgroundStage (0, 0) b
         | None -> print_endline "No background found"
     );
-    print_endline "what???";
     backgroundStage
 
 
@@ -50,7 +50,8 @@ let init =
     model
 
 let renderLife stage cellSize texture universe =
-    let sprite texture' = Pixi.Sprite.create texture' in
+    let sprite texture' = 
+        Pixi.Sprite.create texture' in
     let renderPositionedCell ((x, y), _) = 
         putSprite stage ( x * cellSize, y * cellSize) (sprite texture) in
     List.map renderPositionedCell universe |> ignore
