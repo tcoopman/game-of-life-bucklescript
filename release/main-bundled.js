@@ -554,6 +554,10 @@ function caml_equal(_a, _b) {
   }
 }
 
+function caml_notequal(a, b) {
+  return 1 - caml_equal(a, b);
+}
+
 
 /* No side effect */
 
@@ -3593,7 +3597,7 @@ function reduceLifeCycle(cell, neighbours) {
     actions_001
   ];
   var reducedLifeCycle = head(filter(function (param) {
-              return +(/* Same */2 !== param);
+              return caml_notequal(/* Same */2, param);
             })(actions));
   return withDefault(/* Same */2, reducedLifeCycle);
 }
@@ -3703,7 +3707,13 @@ function isNeighbour(param, param$1) {
   var y1 = param[1];
   var x1 = param[0];
   if (abs(x1 - x2 | 0) <= 1 && abs(y1 - y2 | 0) <= 1) {
-    return 1 - +(x1 === x2 && y1 === y2);
+    return caml_notequal(/* tuple */[
+                x1,
+                y1
+              ], /* tuple */[
+                x2,
+                y2
+              ]);
   } else {
     return /* false */0;
   }

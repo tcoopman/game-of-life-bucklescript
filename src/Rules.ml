@@ -75,7 +75,7 @@ let reduceLifeCycle cell neighbours =
     let
         reducedLifeCycle =
             actions
-                |> List.filter ((!=) Same)
+                |> List.filter ((<>) Same)
                 |> Lst.head
     in
         Option.withDefault Same reducedLifeCycle
