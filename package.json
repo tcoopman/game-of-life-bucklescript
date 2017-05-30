@@ -10,7 +10,8 @@
     "watch:bsb": "bsb -w",
     "watch:js": "rollup -c -w",
     "prewatch": "run-s build",
-    "watch": "run-p watch:bsb watch:js",
+    "watch": "run-p serve watch:bsb watch:js",
+    "serve": "serve -p 5000 -S release",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -21,6 +22,7 @@
     "npm-run-all": "^4.0.2",
     "rollup": "^0.41.6",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-watch": "^3.2.2"
+    "rollup-watch": "^3.2.2",
+    "serve": "^5.1.5"
   }
 }
