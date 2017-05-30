@@ -5060,4 +5060,4 @@ exports.init = init$$1;
 exports.subscriptions = subscriptions;
 exports.main = main;
 
-}((this.bstest = this.bstest || {})));
+}((this.gol = this.gol || {})));
