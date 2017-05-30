@@ -5038,7 +5038,7 @@ function subscriptions(model) {
 
 function partial_arg_000() {
   return /* tuple */[
-          init$$1(blinker),
+          init$$1(pulsar),
           none
         ];
 }

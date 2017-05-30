@@ -8,17 +8,12 @@ module Sprite = struct
   class type _t = object end [@bs]
   type t = _t Js.t
 
-  external x : t -> int -> unit = "x" [@@bs.set]
-  external y : t -> int -> unit = "y" [@@bs.set]
   external setPosition : t -> int -> int -> unit = "set" [@@bs.send] [@@bs.scope "position"]
 
   let updatePosition : t -> position -> t =
     fun sprite (x', y') ->
       setPosition sprite x' y';
-      (*x sprite x';
-      y sprite y';*)
       sprite
-
 
   external create : texture -> t = "PIXI.Sprite" [@@bs.new]
 end

@@ -76,7 +76,7 @@ let subscriptions model =
 
 let main = 
    App.standardProgram {
-    init = (fun () -> (init Examples.blinker, Tea.Cmd.none)) ;
+    init = (fun () -> (init Examples.pulsar, Tea.Cmd.none)) ;
     update = Start.update ;
     view = View.view;
     subscriptions;
