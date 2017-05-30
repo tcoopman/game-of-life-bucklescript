@@ -2134,7 +2134,7 @@ function patchVNodesOnElems_ReplaceNode(callbacks, elem, elems, idx, param) {
       throw [
             match_failure,
             [
-              "/home/thomas/Workspace/bucklescript-test/node_modules/bucklescript-tea/src/vdom.ml",
+              "/home/thomas/Workspace/game-of-life-bucklescript/node_modules/bucklescript-tea/src/vdom.ml",
               316,
               30
             ]
@@ -2173,7 +2173,7 @@ function patchVNodesOnElems_CreateElement(_callbacks, _param) {
             throw [
                   match_failure,
                   [
-                    "/home/thomas/Workspace/bucklescript-test/node_modules/bucklescript-tea/src/vdom.ml",
+                    "/home/thomas/Workspace/game-of-life-bucklescript/node_modules/bucklescript-tea/src/vdom.ml",
                     330,
                     30
                   ]
