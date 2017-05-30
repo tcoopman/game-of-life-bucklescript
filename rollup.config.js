@@ -5,5 +5,5 @@ export default {
     format: 'iife',
     dest: './release/main-bundled.js',
     plugins: [node_resolve({module: true, browser: true})],
-    moduleName: 'bstest'
+    moduleName: 'gol'
 }
