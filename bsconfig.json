@@ -3,5 +3,6 @@
     "sources": { "dir" : "src"},
     "package-specs": ["es6"],
     "bs-dependencies": ["bucklescript-tea"],
-    "generate-merlin": true
+    "generate-merlin": true,
+    "bsc-flags": [ "-no-alias-deps", "-color", "always", "-w", "-40+6+7+27+32..39+44+45", "-w @8"]
 }
